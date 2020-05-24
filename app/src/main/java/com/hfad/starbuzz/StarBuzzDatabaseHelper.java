@@ -18,15 +18,18 @@ public class StarBuzzDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        updateMyDatabase(db, 0, DB_VERSION);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        updateMyDatabase(db, oldVersion, newVersion);
     }
 
     private static void insertDrink(SQLiteDatabase db, String name, String description, int resourceId){
@@ -47,6 +50,7 @@ public class StarBuzzDatabaseHelper extends SQLiteOpenHelper {
         }
 
         if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE DRINK ADD COLUMN FAVORITE MUSIC");
         }
 
     }
